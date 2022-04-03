@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes 
+  become_user: root
+  become_method: sudo
+  tasks:
+
+  - name: Install package nginx
+    apt: name=nginx state=latest update_cache=true
+    
+  - name: Starting srvice nginx
+    service: name=nginx state=started
