@@ -3,8 +3,13 @@
   become: yes
   tasks:
     - name: Installs nginx web server
-      apt: name=nginx state=latest update_cache=true
+      apt:
+        name: nginx
+        state: latest
+        update_cache: true
       notify: start nginx
   handlers:
     - name: start nginx
-      systemd: name=nginx state=started
+      systemd:
+        name: nginx
+        state: started
