@@ -4,8 +4,8 @@
   tasks:
     - name: Installs nginx web server
       apt:
-        name: nginx
-        state: latest
+        name: nginx=1.14.0-0ubuntu1.9
+        state: present
         update_cache: true
       notify: start nginx
   handlers:

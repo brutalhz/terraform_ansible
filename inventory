@@ -1,5 +1,5 @@
 [webserver]
-51.250.66.79
+51.250.12.40
 
 [all:vars]
 ansible_ssh_private_key_file = ~/.ssh/id_rsa
