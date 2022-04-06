@@ -1,15 +1,35 @@
 ---
 - hosts: all
+  vars:
+    sites:
+      - server_name: google.com
+        name: google
+      - server_name: yandex.ru
+        name: yandex
+
   become: yes
   tasks:
-    - name: Installs nginx web server
-      apt:
-        name: nginx=1.14.0-0ubuntu1.9
-        state: present
-        update_cache: true
-      notify: start nginx
+  - name: Installs nginx web server
+    apt:
+      name: nginx=1.14.0-0ubuntu1.9
+      state: present
+      update_cache: true
+    notify: start nginx
+
+  - name: Write the nginx config file
+    template:
+      src: "~/ansible/nginx.j2"
+      dest: "/etc/nginx/conf.d/{{ item.name }}.conf"
+    with_items: "{{ sites }}"
+    notify: reload nginx
+
   handlers:
     - name: start nginx
       systemd:
         name: nginx
         state: started
+
+    - name: reload nginx
+      systemd:
+        name: nginx
+        state: reloaded

@@ -1,0 +1,13 @@
+server {
+    listen 80;
+    listen [::]:80;
+{% if item.server_name is string %}
+    server_name  {{ item.server_name }}.rebrain.srwx.net;
+{% else %}
+    server_name {{ item.server_name | join(' ') }};
+{% endif %}
+
+    location / {
+      proxy_pass {{ item.server_name }};
+    }
+}
