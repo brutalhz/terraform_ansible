@@ -4,8 +4,14 @@
     sites:
       - server_name: google.com
         name: google
+        listen: 8080 default_server
+        index: "index.php index.html index.htm"
+        root: "/var/www/html"
       - server_name: yandex.ru
         name: yandex
+        listen: 8888 default_server
+        index: "index.php index.html index.htm"
+        root: "/var/www/html"
 
   become: yes
   tasks:
