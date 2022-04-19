@@ -1,16 +1,10 @@
-server {
-       listen {{ item.listen | default('80') }};
-       listen [::]:{{item.listen | default('80') }};
-
-{% if item.server_name is string %}
-       server_name {{ item.server_name }};
-{% else %}
-       server_name {{ item.server_name | join(' ') }};
-{% endif %}
-{% if item.root is defined %}
+{% for item in sites %}
+server {       
+       listen {{ item.listen }}
+       server_name {{ item.server_name }}
        root {{ item.root }};
-{% endif %}     
-       index {{ item.index | default('index.html index.htm') }};
-
-
+       index {{ item.index | join(' ') }};
 }
+
+{% endfor %}
+

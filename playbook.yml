@@ -3,14 +3,20 @@
   vars:
     sites:
       - server_name: google.com
-        name: google
+        name: google.com
         listen: 8080 default_server
-        index: "index.php index.html index.htm"
+        index: 
+        - index.php 
+        - index.html 
+        - index.htm
         root: "/var/www/html"
       - server_name: yandex.ru
-        name: yandex
+        name: yandex.ru
         listen: 8888 default_server
-        index: "index.php index.html index.htm"
+        index:
+        - index.php 
+        - index.html 
+        - index.htm
         root: "/var/www/html"
 
     nginx_user: "www-data"
@@ -28,7 +34,7 @@
   tasks:
   - name: Installs nginx web server
     apt:
-      name: nginx=1.14.0-0ubuntu1.9
+      name: nginx=1.14.0-0ubuntu1.10
       state: present
       update_cache: true
     notify: start nginx
