@@ -104,7 +104,7 @@ resource "local_file" "ansible_inventory" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i inventory playbook.yml"
+    command = "ansible-playbook -i inventory roles.yml"
   }
 }
 
