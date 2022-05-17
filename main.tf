@@ -67,7 +67,7 @@ resource "yandex_compute_instance" "node" {
 resource "aws_route53_record" "devops_dns" {
   allow_overwrite = true
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "denis_iddqd_at_gmail_com"
+  name    = "brutalhz"
   type    = "A"
   ttl     = "300"
   records = ["${yandex_compute_instance.node.network_interface.0.nat_ip_address}"]

@@ -1,17 +1,10 @@
 sites:
-  - server_name: google.com
-    name: google.com
-    listen: 8080 default_server
+  - server_name: brutalhz.devops.rebrain.srwx.net
+    name: brutalhz.devops.rebrain.srwx.net
+    listen: 443 ssl default_server
     index:
     - index.php
     - index.html
     - index.htm
     root: "/var/www/html"
-  - server_name: yandex.ru
-    name: yandex.ru
-    listen: 8888 default_server
-    index:
-    - index.php
-    - index.html
-    - index.htm
-    root: "/var/www/html"
+

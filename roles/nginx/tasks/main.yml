@@ -11,3 +11,5 @@
     dest: "/etc/nginx/conf.d/{{ item.name }}.conf"
   with_items: "{{ sites }}"
   notify: reload nginx
+
+

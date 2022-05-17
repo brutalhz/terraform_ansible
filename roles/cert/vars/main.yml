@@ -1,0 +1,7 @@
+---
+inventory_hostname: brutalhz.devops.rebrain.srwx.net
+certbot_auto_renew: true
+certbot_admin_email: denis.iddqd@gmail.com
+certbot_script: /usr/bin/certbot
+certbot_output_dir: "/etc/letsencrypt/live/{{ inventory_hostname }}"
+update_apt_cache: true

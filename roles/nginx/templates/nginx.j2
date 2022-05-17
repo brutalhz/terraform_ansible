@@ -1,6 +1,9 @@
 server {       
        listen {{ item.listen }};
        server_name {{ item.server_name }};
+
+       ssl_certificate /etc/letsencrypt/live/brutalhz.devops.rebrain.srwx.net/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/brutalhz.devops.rebrain.srwx.net/privkey.pem;       
        root {{ item.root }};
        index {{ item.index | join(' ') }};
 }
