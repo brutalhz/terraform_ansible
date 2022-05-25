@@ -36,9 +36,14 @@ variable "aws_secret_key" {
 }
 
 # Main vars
-variable "yc_image_family" {
+variable "yc_image_family_ubuntu" {
   description = "family"
   default = "ubuntu-1804-lts"
+}
+
+variable "yc_image_family_centos" {
+  description = "family"
+  default = "centos-7"
 }
 
 variable "zone" {
@@ -75,3 +80,14 @@ variable "user" {
   type = string
   default = "denis_iddqd_at_gmail_com"
 }
+
+variable "user_ssh" {
+  type = string
+  default = "ubuntu"
+}
+
+variable "user_ssh2" {
+  type = string
+  default = "centos"
+}
+

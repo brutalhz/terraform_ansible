@@ -1,14 +1,38 @@
-- name: Installs nginx web server
+- name: Install nginx Debian/Ubuntu
   apt:
     name: nginx=1.14.0-0ubuntu1.10
     state: present
     update_cache: true
+  when: ansible_os_family == "Debian"
+  notify: start nginx
+
+- name: Install EPEL Repo
+  yum:
+    name: epel-release
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Install nginx CentOS
+  yum:
+    name: nginx
+    state: present
+    update_cache: true
+  when: ansible_os_family == "RedHat"
   notify: start nginx
 
 - name: Write the vhosts config file
   template:
     src: "~/ansible/roles/nginx/templates/nginx.j2"
-    dest: "/etc/nginx/conf.d/{{ item.name }}.conf"
+    dest: "/etc/nginx/conf.d/{{ item.name1 }}.conf"
+  when: ansible_os_family == "Debian"
+  with_items: "{{ sites }}"
+  notify: reload nginx
+
+- name: Write the vhosts config file2
+  template:
+    src: "~/ansible/roles/nginx/templates/nginx2.j2"
+    dest: "/etc/nginx/conf.d/{{ item.name2 }}.conf"
+  when: ansible_os_family == "RedHat"
   with_items: "{{ sites }}"
   notify: reload nginx
 

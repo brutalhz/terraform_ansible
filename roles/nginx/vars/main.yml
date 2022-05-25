@@ -1,10 +1,13 @@
 sites:
-  - server_name: brutalhz.devops.rebrain.srwx.net
-    name: brutalhz.devops.rebrain.srwx.net
-    listen: 443 ssl default_server
+  - server_name1: brutalhz-u.devops.rebrain.srwx.net
+    server_name2: brutalhz-c.devops.rebrain.srwx.net
+    name1: brutalhz-u.devops.rebrain.srwx.net
+    name2: brutalhz-c.devops.rebrain.srwx.net
+    listen: 8080 default_server
     index:
     - index.php
     - index.html
     - index.htm
-    root: "/var/www/html"
+    - index.nginx-debian.html
+    root: "/usr/share/nginx/html"
 
