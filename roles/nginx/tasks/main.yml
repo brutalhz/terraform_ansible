@@ -35,5 +35,3 @@
   when: ansible_os_family == "RedHat"
   with_items: "{{ sites }}"
   notify: reload nginx
-
-

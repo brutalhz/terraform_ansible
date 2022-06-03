@@ -3,11 +3,23 @@ sites:
     server_name2: brutalhz-c.devops.rebrain.srwx.net
     name1: brutalhz-u.devops.rebrain.srwx.net
     name2: brutalhz-c.devops.rebrain.srwx.net
-    listen: 8080 default_server
+    listen: 443 ssl default_server
     index:
     - index.php
     - index.html
     - index.htm
     - index.nginx-debian.html
     root: "/usr/share/nginx/html"
+
+nginx_user: "www-data"
+nginx_pidfile: "/run/nginx.pid"
+nginx_modules: "/etc/nginx/modules-enabled/*.conf"
+nginx_worker_connections: "768"
+nginx_sendfile: "on"
+nginx_tcp_nopush: "on"
+nginx_tcp_nodelay: "on"
+nginx_keepalive_timeout: "65"
+nginx_mime_file_path: "/etc/nginx/mime.types"
+nginx_types_hash_max_size: "2048"
+
 

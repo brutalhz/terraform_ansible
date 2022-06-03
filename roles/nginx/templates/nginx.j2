@@ -3,6 +3,9 @@ server {
        listen [::]:{{ item.listen }};
        server_name {{ item.server_name1 }};
 
+       ssl_certificate /etc/letsencrypt/live/{{ item.server_name1 }}/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/{{ item.server_name1 }}/privkey.pem;
+
        root {{ item.root }};
        index {{ item.index | join(' ') }};
 }

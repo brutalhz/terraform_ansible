@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: nginx
+  - { role: conf, nginx_worker_connections: "1024", nginx_sendfile: "off", nginx_tcp_nodelay: "on", nginx_tcp_nopush: "on" }

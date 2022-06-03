@@ -1,0 +1,13 @@
+---
+nginx_user_u: "www-data"
+nginx_user_c: "nginx"
+nginx_pidfile: "/run/nginx.pid"
+nginx_modules: "/etc/nginx/modules-enabled/*.conf"
+nginx_worker_connections: "512"
+nginx_sendfile: "on"
+nginx_tcp_nopush: "on"
+nginx_tcp_nodelay: "on"
+nginx_keepalive_timeout: "65"
+nginx_mime_file_path: "/etc/nginx/mime.types"
+nginx_types_hash_max_size: "2048"
+
