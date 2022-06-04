@@ -5,14 +5,14 @@
 
 - name: Write the nginx config file
   template:
-    src: "~/ansible/roles/conf/templates/u_nginx.conf.j2"
+    src: "u_nginx.conf.j2"
     dest: "/etc/nginx/nginx.conf"
   when: ansible_os_family == "Debian"
   notify: reload nginx
 
 - name: Write the nginx config file
   template:
-    src: "~/ansible/roles/conf/templates/c_nginx.conf.j2"
+    src: "c_nginx.conf.j2"
     dest: "/etc/nginx/nginx.conf"
   when: ansible_os_family == "RedHat"
   notify: reload nginx  

@@ -52,6 +52,6 @@
 - name: Ensure a cron job to auto-renew the cert exists
   cron: name="daily auto renew cert"
         special_time=daily
-        job="{{ certbot_script }} renew --standalone --no-self-upgrade --pre-hook \"systemctl stop nginx\" --post-hook \"systemctl start nginx\" --quiet"
+        job="{{ certbot_script }} renew --standalone --no-self-upgrade --post-hook \"systemctl reload nginx\" --quiet"
         state=present
   when: certbot_auto_renew
