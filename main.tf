@@ -34,10 +34,6 @@ data "yandex_compute_image" "base_image_ubuntu" {
   family = var.yc_image_family_ubuntu
 }
 
-data "yandex_compute_image" "base_image_centos" {
-  family = var.yc_image_family_centos
-}
-
 ## Create a new Yandex Cloud instance
 resource "yandex_compute_instance" "ubuntu" {
   name        = "ubuntu-vm"
@@ -68,36 +64,6 @@ resource "yandex_compute_instance" "ubuntu" {
 
 }
 
-## Create a new Yandex Cloud instance
-resource "yandex_compute_instance" "centos" {
-  name        = "centos-vm"
-  hostname    = "centos-vm"
-  platform_id = var.platform_id
-  labels = var.label
-
-  resources {
-    cores  = 2
-    memory = 2
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = data.yandex_compute_image.base_image_centos.id
-      size = var.disk_size
-    }
-  }
-
-  network_interface {
-    subnet_id = data.yandex_vpc_subnet.default.id
-    nat       = true
-  }
-
-  metadata = {
-    ssh-keys = "ubuntu:${file(var.pub_key)}"
-  }
-
-}
-
 resource "aws_route53_record" "devops_dns" {
   allow_overwrite = true
   zone_id = data.aws_route53_zone.main.zone_id
@@ -107,23 +73,12 @@ resource "aws_route53_record" "devops_dns" {
   records = ["${yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address}"]
 }
 
-resource "aws_route53_record" "devops_dns2" {
-  allow_overwrite = true
-  zone_id = data.aws_route53_zone.main.zone_id
-  name    = "brutalhz-c"
-  type    = "A"
-  ttl     = "300"
-  records = ["${yandex_compute_instance.centos.network_interface.0.nat_ip_address}"]
-}
-
 data "template_file" "inventory" {
     template = "${file("${path.module}/inventory.tpl")}"
 
     vars = {
        ya_pub_ip = "${yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address}"
-       ya_pub_ip2 = "${yandex_compute_instance.centos.network_interface.0.nat_ip_address}"
        u_ssh = var.user_ssh
-       u_ssh2 = var.user_ssh2
        key_path = var.private_key 
 
 

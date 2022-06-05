@@ -11,3 +11,7 @@ terraform.tfvars
 
 # json files
 key.json
+
+
+# roles
+**/roles/*
