@@ -1,5 +1,5 @@
 [ubuntu]
-51.250.94.209
+51.250.5.90
 
 [all:vars]
 ansible_ssh_private_key_file = ~/.ssh/id_rsa

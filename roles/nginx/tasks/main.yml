@@ -6,20 +6,6 @@
   when: ansible_os_family == "Debian"
   notify: start nginx
 
-- name: Install EPEL Repo
-  yum:
-    name: epel-release
-    state: present
-  when: ansible_os_family == "RedHat"
-
-- name: Install nginx CentOS
-  yum:
-    name: nginx
-    state: present
-    update_cache: true
-  when: ansible_os_family == "RedHat"
-  notify: start nginx
-
 - name: Write the vhosts config file
   template:
     src: "nginx.j2"
@@ -28,10 +14,25 @@
   with_items: "{{ sites }}"
   notify: reload nginx
 
-- name: Write the vhosts config file2
-  template:
-    src: "nginx2.j2"
-    dest: "/etc/nginx/conf.d/{{ item.name2 }}.conf"
-  when: ansible_os_family == "RedHat"
+- name: Create dir for cert
+  file:
+    path: "/etc/letsencrypt/live/{{ item.name1 }}"
+    state: directory
   with_items: "{{ sites }}"
-  notify: reload nginx
+
+- name: Copy ssl cert privkey.pem
+  copy:
+    src: "~/ansible/roles/nginx/files/privkey.pem"
+    dest: "/etc/letsencrypt/live/{{ item.name1 }}/privkey.pem"
+  with_items: "{{ sites }}"
+
+- name: Copy ssl cert fullchain.pem
+  copy:
+    src: "~/ansible/roles/nginx/files/fullchain.pem"
+    dest: "/etc/letsencrypt/live/{{ item.name1 }}/fullchain.pem"
+  with_items: "{{ sites }}"
+    
+- name: Copy ssh private key
+  copy:
+    src: "~/ansible/roles/nginx/files/rsakey"
+    dest: "/home/ubuntu/.ssh/rsakey"

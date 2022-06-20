@@ -67,7 +67,7 @@ resource "yandex_compute_instance" "ubuntu" {
 resource "aws_route53_record" "devops_dns" {
   allow_overwrite = true
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "brutalhz-u"
+  name    = "brutalhz-t"
   type    = "A"
   ttl     = "300"
   records = ["${yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address}"]
@@ -104,8 +104,8 @@ resource "local_file" "ansible_inventory" {
     ]
   }
 
-  provisioner "local-exec" {
-    command = "ansible-playbook -i inventory roles.yml"
-  }
+#  provisioner "local-exec" {
+#    command = "ansible-playbook -i inventory roles.yml"
+#  }
 }
 

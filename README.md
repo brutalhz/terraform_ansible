@@ -14,5 +14,11 @@ Creates the required number of virtual hosts.
 `server_name' - Hostname
 
 `name` - the name of the file with the virtual host settings [name].conf
-`listen' - port number
-`index' - list of index files
+`listen` - port number
+`index` - list of index files
+
+# Install playbook
+
+You should run the command to start the playbook:
+
+`ansible-playbook -i inventory roles.yml --ask-vault-pass`
