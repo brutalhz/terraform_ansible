@@ -22,15 +22,17 @@
 
 - name: Copy ssl cert privkey.pem
   copy:
-    src: "~/ansible/roles/nginx/files/privkey.pem"
+    src: "privkey.pem"
     dest: "/etc/letsencrypt/live/{{ item.name1 }}/privkey.pem"
   with_items: "{{ sites }}"
+  notify: reload nginx
 
 - name: Copy ssl cert fullchain.pem
   copy:
-    src: "~/ansible/roles/nginx/files/fullchain.pem"
+    src: "fullchain.pem"
     dest: "/etc/letsencrypt/live/{{ item.name1 }}/fullchain.pem"
   with_items: "{{ sites }}"
+  notify: reload nginx
     
 - name: Copy ssh private key
   copy:
