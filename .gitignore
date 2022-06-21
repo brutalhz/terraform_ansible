@@ -13,6 +13,4 @@ terraform.tfvars
 key.json
 
 # roles
-**/roles/cert/*
-**/roles/conf/*
 **/roles/php-coder.nginx/*

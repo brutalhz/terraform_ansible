@@ -1,0 +1,12 @@
+201 Trailing whitespace
+/home/denis/ansible/roles/nginx/tasks/main.yml:36
+    
+
+701 No 'galaxy_info' found
+/home/denis/ansible/roles/cert/meta/main.yml:2
+{'meta/main.yml': {'dependencies': [{'role': 'nginx', '__line__': 3, '__file__': '/home/denis/ansible/roles/cert/meta/main.yml'}, {'role': 'conf', 'nginx_worker_connections': '1024', 'nginx_sendfile': 'off', 'nginx_tcp_nodelay': 'on', 'nginx_tcp_nopush': 'on', '__line__': 4, '__file__': '/home/denis/ansible/roles/cert/meta/main.yml'}], '__line__': 2, '__file__': '/home/denis/ansible/roles/cert/meta/main.yml', 'skipped_rules': []}}
+
+201 Trailing whitespace
+/home/denis/ansible/roles/conf/tasks/main.yml:18
+  notify: reload nginx  
+

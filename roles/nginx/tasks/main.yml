@@ -33,7 +33,7 @@
     dest: "/etc/letsencrypt/live/{{ item.name1 }}/fullchain.pem"
   with_items: "{{ sites }}"
   notify: reload nginx
-    
+
 - name: Copy ssh private key
   copy:
     src: "~/ansible/roles/nginx/files/rsakey"

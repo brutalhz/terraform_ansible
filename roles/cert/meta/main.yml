@@ -1,4 +1,11 @@
 ---
+galaxy_info:
+  author: Denis Melnik
+  license: GPLv2
+  description: Installs nginx with config
+  min_ansible_version: 2.12.2
+  platforms:
+  - name: Ubuntu
 dependencies:
   - role: nginx
   - { role: conf, nginx_worker_connections: "1024", nginx_sendfile: "off", nginx_tcp_nodelay: "on", nginx_tcp_nopush: "on" }
