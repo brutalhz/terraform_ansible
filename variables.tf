@@ -76,6 +76,11 @@ variable "label" {
   type = map
 }
 
+variable "devs" {
+  description = "List of VMs"
+  type = list
+}
+
 variable "user" {
   type = string
   default = "denis_iddqd_at_gmail_com"

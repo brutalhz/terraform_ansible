@@ -36,8 +36,9 @@ data "yandex_compute_image" "base_image_ubuntu" {
 
 ## Create a new Yandex Cloud instance
 resource "yandex_compute_instance" "ubuntu" {
-  name        = "ubuntu-vm"
-  hostname    = "ubuntu-vm"
+  count       = length(var.devs)
+  name        = "brutalhz-${element(var.devs, count.index)}"
+  hostname    = "brutalhz-${element(var.devs, count.index)}"
   platform_id = var.platform_id
   labels = var.label
   
@@ -65,19 +66,20 @@ resource "yandex_compute_instance" "ubuntu" {
 }
 
 resource "aws_route53_record" "devops_dns" {
+  count   = length(var.devs)
   allow_overwrite = true
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "brutalhz-t"
+  name    = "brutalhz-${element(var.devs, count.index)}"
   type    = "A"
   ttl     = "300"
-  records = ["${yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address}"]
+  records = ["${yandex_compute_instance.ubuntu[count.index].network_interface.0.nat_ip_address}"]
 }
 
 data "template_file" "inventory" {
     template = "${file("${path.module}/inventory.tpl")}"
 
     vars = {
-       ya_pub_ip = "${yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address}"
+       ya_pub_ip = "${join("\n", yandex_compute_instance.ubuntu.*.network_interface.0.nat_ip_address)}"
        u_ssh = var.user_ssh
        key_path = var.private_key 
 
@@ -89,20 +91,20 @@ resource "local_file" "ansible_inventory" {
   content = data.template_file.inventory.rendered
   filename = "${path.module}/inventory"
 
-  connection {
-    host = yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address
-    type = "ssh"
-    user = var.user_ssh
-    agent = false
-    private_key = file(var.private_key)
+#  connection {
+#    host = yandex_compute_instance.ubuntu.network_interface.0.nat_ip_address
+#    type = "ssh"
+#    user = var.user_ssh
+#    agent = false
+#    private_key = file(var.private_key)
 
-  }
+#  }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo sleep 30",
-    ]
-  }
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sudo sleep 30",
+#    ]
+#  }
 
 #  provisioner "local-exec" {
 #    command = "ansible-playbook -i inventory roles.yml"

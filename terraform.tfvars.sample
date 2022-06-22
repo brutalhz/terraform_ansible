@@ -4,3 +4,4 @@ aws_secret_key = ""
 ya_cloud_id = ""
 ya_folder_id = ""
 label = {}
+devs = []
